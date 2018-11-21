@@ -29,9 +29,9 @@ provider "aws" {
 }
 
 provider "aws" {
-  version                 = "1.24"
-  region                  = "us-west-2"
-  alias                   = "us-west-2"
+  version = "1.24"
+  region  = "us-west-2"
+  alias   = "us-west-2"
 }
 
 module "aws_deploy-main-ap-southeast-1" {
@@ -295,16 +295,13 @@ module "aws_deploy-fast_integration-eu-west-2" {
   }
 }
 
-
-
 ##### GOOGLE
 
 provider "google" {
   project = "epoch-p2p"
-  region = "us-central1"
-  alias  = "us-central1"
+  region  = "us-central1"
+  alias   = "us-central1"
 }
-
 
 module "gcloud_deplo-us-central-1" {
   source = "modules/cloud/google/deploy"
@@ -316,11 +313,11 @@ module "gcloud_deplo-us-central-1" {
 
   static_nodes = 1
 
-  nodes = 4
+  nodes         = 4
   instance_type = "n1-standard-2"
-  image_name      = "epoch-ubuntu-16-04-v1542381177"
-  zone ="us-central1-a"
-  region = "us-central1"
+  image_name    = "epoch-ubuntu-16-04-v1542381177"
+  zone          = "us-central1-a"
+  region        = "us-central1"
 
   epoch = {
     package = "https://s3.eu-central-1.amazonaws.com/aeternity-epoch-builds/epoch-latest-ubuntu-x86_64.tar.gz"
