@@ -82,7 +82,7 @@ local
 EOF
 
 if [ -z "$epoch_package" -a -n "$epoch_version" ]; then
-    epoch_package="https://s3.eu-central-1.amazonaws.com/aeternity-epoch-releases/epoch-{{ epoch_version }}-ubuntu-x86_64.tar.gz"
+    epoch_package="https://s3.eu-central-1.amazonaws.com/aeternity-epoch-releases/epoch-${epoch_package}-ubuntu-x86_64.tar.gz"
 fi
 
 # While Ansible is run by Python 3 because of the virtual environment
