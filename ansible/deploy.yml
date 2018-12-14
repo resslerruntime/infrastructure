@@ -86,18 +86,10 @@
           - "vars/epoch/default.yml"
         tags: [config, epoch_config, peer_keys, health-check]
 
-      - name: Fail on missing package and version variable
+      - name: Fail on missing package variable
         fail:
-          msg: '"package" or "version" variables must be defined'
-        when:
-          - package is not defined
-          - version is not defined
-        tags: [package]
-
-      - name: Construct package URL from version
-        set_fact:
-          package: "https://s3.eu-central-1.amazonaws.com/aeternity-epoch-releases/epoch-{{ version }}-ubuntu-x86_64.tar.gz"
-        when: package is not defined or package == ""
+          msg: '"package" variable must be defined'
+        when: package is not defined
         tags: [package]
 
       - name: Download remote package
@@ -105,9 +97,7 @@
           url: "{{ package }}"
           dest: "{{ packages_path }}/{{ package|basename }}"
           checksum: "{{ package_checksum|default(omit) }}"
-        when:
-          - package != ""
-          - "'http' in package"
+        when: "'http' in package"
         register: remote_package
         notify: "stop epoch daemon"
         tags: [package]
@@ -116,9 +106,7 @@
         copy:
           src: "{{ package }}"
           dest: "{{ packages_path }}/{{ package|basename }}"
-        when:
-          - package != ""
-          - "'http' not in package"
+        when: "'http' not in package"
         register: local_package
         notify: "stop epoch daemon"
         tags: [package]
@@ -262,7 +250,6 @@
             host: "{{ public_ipv4 }}"
             alert_type: error
             title: Deploy
-            text: "Package: {{ package|default('unknown') }}"
             text: |
               %%%
               Package: {{ package|default('unknown') }}
@@ -272,7 +259,6 @@
             app_key: "{{ datadog_app_key }}"
             tags:
               - "env:{{ env }}"
-              - "version:{{ version|default('unknown') }}"
           when:
             - datadog_api_key != ""
             - datadog_app_key != ""

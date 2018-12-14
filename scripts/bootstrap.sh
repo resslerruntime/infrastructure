@@ -81,6 +81,10 @@ local
 
 EOF
 
+if [ -z "$epoch_package" -a -n "$epoch_version" ]; then
+    epoch_package="https://s3.eu-central-1.amazonaws.com/aeternity-epoch-releases/epoch-{{ epoch_version }}-ubuntu-x86_64.tar.gz"
+fi
+
 # While Ansible is run by Python 3 because of the virtual environment
 # the "remote" (which is in this case the same) host interpreter must also be set to python3
 # in this case it's the path in the virtual environment on the controller (same as the remote)
