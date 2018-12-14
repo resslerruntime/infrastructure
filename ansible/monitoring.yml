@@ -49,6 +49,7 @@
         env: "{{ instance_tags['tags']['env'] | default('unknown') }}"
         color: "{{ instance_tags['tags']['color'] | default('unknown') }}"
         kind: "{{ instance_tags['tags']['kind'] | default('peer') }}"
+        epoch_version: "{{ instance_tags['tags']['epoch_version'] | default('unknown') }}"
       when: is_aws
 
 - name: Configure monitoring services (DataDog)
@@ -78,6 +79,7 @@
         - "env:{{ env|default('unknown') }}"
         - "color:{{ color|default('unknown') }}"
         - "kind:{{ kind|default('peer') }}"
+        - "epoch_version:{{ epoch_version|default('unknown') }}"
         - "lsb:{{ ansible_lsb.description }}"
         - "flavor:c{{ ansible_processor_vcpus }}.m{{ (ansible_memtotal_mb/1024)|round|int }}"
         - "public_ipv4:{{ public_ipv4 }}"

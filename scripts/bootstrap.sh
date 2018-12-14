@@ -21,6 +21,10 @@ case $i in
     epoch_package="${i#*=}"
     shift # past argument=value
     ;;
+    --epoch_version=*)
+    epoch_version="${i#*=}"
+    shift # past argument=value
+    ;;
     --default)
     DEFAULT=YES
     shift # past argument with no value
@@ -97,6 +101,7 @@ ansible-playbook \
     -i /tmp/local_inventory \
     -e ansible_python_interpreter=$(which python3) \
     --become-user epoch -b \
+    -e version=${epoch_version} \
     -e package=${epoch_package} \
     -e env=${env} \
     -e db_version=0 \
